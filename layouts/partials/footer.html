@@ -141,4 +141,76 @@
         }
     });
 </script>
+
+<!-- Floating Back Button -->
+<a href="#" id="floating-back-btn" aria-label="Back to previous position" class="floating-back-btn" style="visibility: hidden; opacity: 0;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 14 L4 9 L9 4"/>
+        <path d="M20 20v-7a4 4 0 0 0-4-4H4"/>
+    </svg>
+</a>
+
+<script>
+    (function() {
+        console.log('Floating back button script started');
+        var backBtn = document.getElementById('floating-back-btn');
+        console.log('Back button element:', backBtn);
+        var lastPosition = 0;
+
+        function handleClick(e) {
+            var target = e.target;
+            // Traverse up the DOM tree to find the nearest anchor element
+            while (target && target !== document) {
+                if (target.tagName === 'A') {
+                    console.log('Link or nested element clicked. href:', target.getAttribute('href'));
+                    var href = target.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        console.log('Internal link detected');
+                        e.preventDefault(); // Prevent default link behavior
+                        lastPosition = window.pageYOffset;
+                        console.log('Last position set to:', lastPosition);
+                        var targetId = href.substring(1);
+                        var targetElement = document.getElementById(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                        showButton();
+                    }
+                    break; // Stop traversing up once we find an anchor
+                }
+                target = target.parentElement;
+            }
+        }
+
+        function showButton() {
+            console.log('Showing button');
+            backBtn.style.visibility = 'visible';
+            backBtn.style.opacity = '1';
+            console.log('Button visibility:', backBtn.style.visibility, 'opacity:', backBtn.style.opacity);
+        }
+
+        function hideButton() {
+            console.log('Hiding button');
+            backBtn.style.visibility = 'hidden';
+            backBtn.style.opacity = '0';
+            console.log('Button visibility:', backBtn.style.visibility, 'opacity:', backBtn.style.opacity);
+        }
+
+        backBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Back button clicked');
+            window.scrollTo({
+                top: lastPosition,
+                behavior: 'smooth'
+            });
+            console.log('Scrolled to position:', lastPosition);
+            hideButton();
+        });
+
+        document.addEventListener('click', handleClick);
+        console.log('Click event listener added to document');
+    })();
+</script>
+
+
 {{- end }}

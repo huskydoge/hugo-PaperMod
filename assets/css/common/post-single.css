@@ -3,6 +3,10 @@
     margin: 24px auto var(--content-gap) auto;
 }
 
+.post-content {
+    font-size: 18px;
+}
+
 .post-title {
     margin-bottom: 2px;
     font-size: 40px;
@@ -11,6 +15,10 @@
 .post-description {
     margin-top: 10px;
     margin-bottom: 5px;
+}
+
+.toc {
+    font-size: 14px;
 }
 
 .post-meta,
@@ -240,15 +248,15 @@
 }
 
 .post-content figure > figcaption {
-    color: var(--primary);
-    font-size: 16px;
+    color: hsl(0, 9%, 61%);
+    font-size: 15px;
     font-weight: bold;
     margin: 8px 0 16px;
 }
 
 .post-content figure > figcaption > p {
     color: var(--secondary);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: normal;
 }
 
@@ -366,6 +374,7 @@ h6:hover .anchor {
 .paginav {
     display: flex;
     line-height: 30px;
+    font-size: 14px;
 }
 
 .paginav a {

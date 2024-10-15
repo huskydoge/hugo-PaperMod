@@ -1,0 +1,17 @@
+{{- $figureNumber := .Get 0 -}}
+{{- $figureID := printf "figure-%d" $figureNumber -}}
+<a href="#{{ $figureID }}" class="figure-link">Fig. {{ $figureNumber }}</a>
+{{/* We use {{- and -}} at the start and end of each Hugo directive. 
+     This tells Hugo to remove whitespace around these directives.
+     Otherwise it will result in something like "( Fig.3)", which is not what we want. */}}
+
+<style>
+    .figure-link {
+        color: #007bff;
+        text-decoration: none;
+    }
+    
+    .figure-link:hover {
+        text-decoration: underline;
+    }
+</style>

@@ -1,0 +1,12 @@
+{{- define "partials/reading-time.html" -}}
+{{- $language := .Language.Lang | default "en-us" -}}
+{{- if (strings.HasPrefix $language "zh") -}}
+    {{/* For Chinese content */}}
+    {{- $charCount := findRE "\\p{Han}" .Content -1 | len -}}
+    {{/* Average reading speed: ~250 characters per minute for Chinese */}}
+    {{- div $charCount 250 | math.Ceil | int -}}
+{{- else -}}
+    {{/* For other languages, use Hugo's default reading time */}}
+    {{- .ReadingTime -}}
+{{- end -}}
+{{- end -}}

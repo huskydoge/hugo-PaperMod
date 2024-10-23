@@ -38,11 +38,13 @@
   {{- if .Content }}
   <div class="post-content">
     {{- if not (.Param "disableAnchoredHeadings") }}
-    {{- partial "anchored_headings.html" .Content -}}
-    {{- else }}{{ .Content }}{{ end }}
-    {{ if .Params.author }}
-    {{ partial "citation.html" . }}
-    {{ end }}
+      {{- partial "anchored_headings.html" .Content -}}
+    {{- else -}}
+      {{- .Content -}}
+    {{- end }}
+    {{- if and .Params.author (not .Params.hideCitation) }}
+      {{- partial "citation.html" . -}}
+    {{- end }}
   </div>
   {{- end }}
 

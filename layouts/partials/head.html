@@ -50,6 +50,79 @@
           ]
         });"></script>
 
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const annotatedTexts = document.querySelectorAll('.annotated-text');
+    let currentTooltip = null;
+    let hideTimeout = null;
+
+    annotatedTexts.forEach(text => {
+    text.addEventListener('mouseenter', showAnnotation);
+    text.addEventListener('mouseleave', scheduleHideAnnotation);
+    });
+
+    function showAnnotation(event) {
+    const id = event.target.dataset.annotationId;
+    const annotation = document.getElementById(`annotation-${id}`);
+    if (annotation) {
+        if (currentTooltip && currentTooltip !== annotation) {
+        hideAnnotationImmediately(currentTooltip);
+        }
+        annotation.classList.add('visible');
+        annotation.classList.remove('fadeout');
+        positionAnnotation(event, annotation);
+        currentTooltip = annotation;
+        
+        annotation.addEventListener('mouseenter', cancelHideAnnotation);
+        annotation.addEventListener('mouseleave', scheduleHideAnnotation);
+    }
+    }
+
+    function scheduleHideAnnotation() {
+    hideTimeout = setTimeout(() => {
+        if (currentTooltip) {
+        currentTooltip.classList.add('fadeout');
+        setTimeout(() => {
+            currentTooltip.classList.remove('visible', 'fadeout');
+        }, 300);
+        }
+    }, 300);
+    }
+
+    function cancelHideAnnotation() {
+    if (hideTimeout) {
+        clearTimeout(hideTimeout);
+    }
+    }
+
+    function hideAnnotationImmediately(annotation) {
+    annotation.classList.remove('visible', 'fadeout');
+    }
+
+    function positionAnnotation(event, annotation) {
+    const rect = event.target.getBoundingClientRect();
+    const annotationRect = annotation.getBoundingClientRect();
+    
+    let left = event.clientX - annotationRect.width / 2;
+    let top = rect.top - annotationRect.height - 10;
+
+    if (left < 10) left = 10;
+    if (left + annotationRect.width > window.innerWidth - 10) {
+        left = window.innerWidth - annotationRect.width - 10;
+    }
+    if (top < 10) {
+        top = rect.bottom + 10;
+    }
+
+    annotation.style.left = `${left}px`;
+    annotation.style.top = `${top}px`;
+    }
+});
+</script>
+
+
 {{- /* Styles */}}
 
 {{- /* includes */}}

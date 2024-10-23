@@ -5,11 +5,20 @@
 {{- end }}
 
 {{- if (.Param "ShowReadingTime") -}}
-{{- $scratch.Add "meta" (slice (i18n "read_time" .ReadingTime | default (printf "%d min" .ReadingTime))) }}
-{{- end }}
+    {{- $readingTime := partial "reading-time.html" . -}}
+    {{- $scratch.Add "meta" (slice (i18n "read_time" (dict "Count" $readingTime))) -}}
+{{- end -}}
 
 {{- if (.Param "ShowWordCount") -}}
-{{- $scratch.Add "meta" (slice (i18n "words" .WordCount | default (printf "%d words" .WordCount))) }}
+  {{- $language := .Language.Lang | default "en-us" -}}
+  {{- if (strings.HasPrefix $language "zh") -}}
+    {{/* For Chinese content, count characters */}}
+    {{- $charCount := findRE "\\p{Han}" .Content -1 | len -}}
+    {{- $scratch.Add "meta" (slice (i18n "words" $charCount)) -}}
+  {{- else -}}
+    {{/* For other languages, use default word count */}}
+    {{- $scratch.Add "meta" (slice (i18n "words" .WordCount)) -}}
+  {{- end -}}
 {{- end }}
 
 {{- if not (.Param "hideAuthor") -}}

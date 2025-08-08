@@ -33,6 +33,7 @@
   {{- partial "cover.html" (dict "cxt" . "IsSingle" true "isHidden" $isHidden) }}
   {{- if (.Param "ShowToc") }}
   {{- partial "toc.html" . }}
+  {{- partial "sticky-toc.html" . }}
   {{- end }}
 
   {{- if .Content }}

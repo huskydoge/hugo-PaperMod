@@ -2,7 +2,10 @@
 {{ else }}
 {{ warnf "missing value for param 'summary': %s" .Position }}
 {{ end }}
-<p><details {{ if (eq (.Get "openByDefault") true) }} open=true {{ end }}>
+{{- $boxed := eq (.Get "boxed") "true" -}}
+{{- if $boxed -}}<div class="toggle-box">{{- end -}}
+<details {{ if (eq (.Get "openByDefault") true) }} open=true {{ end }}>
   <summary markdown="span">{{ .Get "summary" | markdownify }}</summary>
   {{ .Inner | markdownify }}
-</details></p>
+</details>
+{{- if $boxed -}}</div>{{- end -}}

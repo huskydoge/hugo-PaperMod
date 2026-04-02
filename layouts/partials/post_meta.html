@@ -1,5 +1,7 @@
 {{- $scratch := newScratch }}
 
+<!-- VIEWTEST theme partial -->
+
 {{- if not .Date.IsZero -}}
 {{- $scratch.Add "meta" (slice (printf "<span title='%s'>%s</span>" (.Date) (.Date | time.Format (default "January 2, 2006" site.Params.DateFormat)))) }}
 {{- end }}
@@ -26,6 +28,9 @@
 {{- $scratch.Add "meta" (slice .) }}
 {{- end }}
 {{- end }}
+
+{{- /* Add page view counter - hardcoded for now */ -}}
+{{- $scratch.Add "meta" (slice `<span class="page-views">👁 123 views</span>`) }}
 
 {{- with ($scratch.Get "meta") }}
 {{- delimit . "&nbsp;·&nbsp;" | safeHTML -}}

@@ -65,6 +65,58 @@
   color: var(--content);
 }
 
+.toggle-box {
+  margin: 18px 0;
+  padding: 12px 16px;
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  background: var(--theme);
+}
+
+.toggle-box details {
+  margin: 0;
+}
+
+.toggle-box details > summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  list-style: none;
+}
+
+.toggle-box details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.toggle-box details > summary::before {
+  content: "▸";
+  flex: 0 0 auto;
+  font-size: 13px;
+  line-height: 1;
+  color: var(--secondary);
+  transform: translateY(1px);
+}
+
+.toggle-box details[open] > summary::before {
+  content: "▾";
+}
+
+.toggle-box details[open] > summary {
+  margin-bottom: 10px;
+}
+
+.toggle-box details > :not(summary):first-child,
+.toggle-box p:first-of-type {
+  margin-top: 0;
+}
+
+.toggle-box details > :last-child,
+.toggle-box p:last-of-type {
+  margin-bottom: 0;
+}
+
 /* Callout Color Variants */
 .callout-green {
   background: #f0fdf4;
@@ -227,7 +279,8 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .aside-block,
-  .callout-block {
+  .callout-block,
+  .toggle-box {
     margin: 16px 0;
   }
   

@@ -88,11 +88,6 @@
   }
 }
 
-/* Hide the original ## Reference heading from markdown */
-.post-content h2:last-of-type {
-  display: none;
-}
-
 /* Dark theme adjustments */
 .dark .references-divider {
   background: var(--border);

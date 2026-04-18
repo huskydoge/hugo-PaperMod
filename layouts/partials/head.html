@@ -38,10 +38,14 @@
 
 <script>
     MathJax = {
+      loader: {
+        load: ['[tex]/color']
+      },
       svg: {
         fontCache: 'global'
       },
       tex: {
+        packages: {'[+]': ['color']},
         inlineMath: [['$', '$'], ['\\(', '\\)']],
         displayMath: [['$$', '$$'], ['\\[', '\\]']],
         processEscapes: true,

@@ -52,12 +52,13 @@
 }
 
 .reference-content a {
-  color: var(--tertiary);
+  color: var(--secondary);
   text-decoration: none;
   font-size: 12px;
 }
 
 .reference-content a:hover {
+  color: var(--primary);
   text-decoration: underline;
 }
 
